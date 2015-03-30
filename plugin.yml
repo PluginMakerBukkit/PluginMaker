@@ -1,0 +1,21 @@
+main: tk.pluginmaker.Core
+name: PluginMaker
+version: 0.0.1DEV
+authors: [Mr_Black_Is_Back]
+website: n/a
+
+commands:
+   plmaker:
+      description: Info command.
+      usage: /<command>
+
+   makepl:
+      description: PluginMaker base command.
+      usage: /<command> <syntax>
+
+permissions:
+   plmaker.info:
+      default: true
+
+   plmaker.make:
+      default: op
