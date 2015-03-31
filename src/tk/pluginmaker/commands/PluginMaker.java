@@ -35,12 +35,6 @@ public class PluginMaker implements CommandExecutor {
                     String command2 = args[1];
 
                     /*
-                    Null checks:
-                     */
-                    if(command == null) return true;
-                    if(command2 == null) return true;
-
-                    /*
                     Print a message;
                      */
                     String print = ChatColor.translateAlternateColorCodes('&', command2);
@@ -55,12 +49,36 @@ public class PluginMaker implements CommandExecutor {
                      */
                     if(command.equalsIgnoreCase("broadcast")) {
                         String text = "";
-                        for (int i = 0; i < args.length; i++) {
-                            text += args[i].replace(command, "") + " ";
+                        for (String arg : args) {
+                            text += arg.replace(command, "") + " ";
                         }
 
                         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', text));
                         return true;
+                    }
+
+                    /*
+                    Set a players health:
+                   TODO: Bug #1. Error when not following syntax.
+                     */
+                    if(command.equalsIgnoreCase("sethealth")) {
+                        Player t = Bukkit.getServer().getPlayer(command2);
+
+                        if(t != null) {
+                            if(args[2] != null) {
+                                int health = Integer.parseInt(args[2]);
+                                if(health > 20) return true;
+                                p.sendMessage(plugin.prefix + ChatColor.GOLD + "Set players health to: " + health);
+                                t.setHealth(health);
+                                return true;
+                            } else {
+                                p.sendMessage(plugin.prefix + ChatColor.RED + "Error, Please read Plugin syntax! " + plugin.website);
+                                return true;
+                            }
+                        } else {
+                            p.sendMessage(plugin.prefix + ChatColor.RED + "Error, Please read Plugin syntax! " + plugin.website);
+                            return true;
+                        }
                     }
                 }
             }
